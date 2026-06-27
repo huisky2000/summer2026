@@ -122,6 +122,19 @@
       background: #fbfcfd;
     }
 
+    .mini[data-detail] {
+      cursor: pointer;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .mini[data-detail]:hover,
+    .mini[data-detail]:focus {
+      border-color: #8fb3d8;
+      box-shadow: 0 8px 18px rgba(16, 33, 48, 0.12);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
     .mini strong {
       display: block;
       margin-bottom: 4px;
@@ -334,35 +347,35 @@
     <section id="today">
       <h2>Trip Dashboard</h2>
       <div class="grid">
-        <div class="mini">
+        <div class="mini" data-detail="day7-flight" role="button" tabindex="0">
           <strong>7 July: TRD to OSL</strong>
           <span>SAS SK377, 20:30-21:25. Booking ref <span class="ref">YWLAOR</span>.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day7-hotel" role="button" tabindex="0">
           <strong>7 July: Oslo Airport Hotel</strong>
           <span>Clarion Hotel Oslo Airport, Hans Gaardervei 15, 2060 Gardermoen.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day8-flight" role="button" tabindex="0">
           <strong>8 July: OSL to DUS</strong>
           <span>SAS SK816, 08:40-10:30. Booking ref <span class="ref">YWLAOR</span>.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day8-11-germany" role="button" tabindex="0">
           <strong>8-11 July: Germany Drive</strong>
           <span>DUS pickup, Nierstein, Stuttgart, STR drop-off, then BCN.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day11-14-sitges" role="button" tabindex="0">
           <strong>11-14 July: Sitges</strong>
           <span>Eurostars Sitges, booked via Hotels.com.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day14-16-spain" role="button" tabindex="0">
           <strong>14-17 July: Spain Hotel</strong>
           <span>Not booked yet. Add details in Booking Notes when ready.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day17-bcn-dus" role="button" tabindex="0">
           <strong>17 July: BCN to DUS</strong>
           <span>Vueling VY1896, 06:50-09:05. Airline ref <span class="ref">ZHMKSV</span>.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day17-dus-trd" role="button" tabindex="0">
           <strong>17 July: DUS to TRD</strong>
           <span>SAS SK817 DUS-OSL 13:55-15:40, SK364 OSL-TRD 19:05-20:00. Ref <span class="ref">YWFM5O</span>.</span>
         </div>
@@ -379,35 +392,35 @@
     <section id="timeline">
       <h2>Full Trip Timeline</h2>
       <div class="grid">
-        <div class="mini">
+        <div class="mini" data-detail="day7" role="button" tabindex="0">
           <strong>7 July</strong>
           <span>TRD to OSL, SAS SK377, 20:30-21:25. Overnight at Clarion Hotel Oslo Airport. Culture: keep it airport-light; Oslo city is not realistic this late.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day8" role="button" tabindex="0">
           <strong>8 July</strong>
           <span>OSL to DUS, SAS SK816, 08:40-10:30. Pick up Enterprise SUV at DUS at 12:00. Drive to Nierstein. Culture: Cologne museums or TimeRide; Mainz/Rheinhessen only if energy allows.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day9" role="button" tabindex="0">
           <strong>9 July</strong>
           <span>Nierstein to Stuttgart via Heidelberg and Technik Museum Sinsheim. Culture: Heidelberg Castle Festival / Kurpfalzisches Museum, or jazzopen Stuttgart if arriving early.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day10" role="button" tabindex="0">
           <strong>10 July</strong>
           <span>Recommended family day: Tripsdrill. Alternatives: Mercedes/Porsche museums or Black Forest B500. Culture: Stuttgart PRIDE Culture Weeks and jazzopen.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day11" role="button" tabindex="0">
           <strong>11 July</strong>
           <span>Drop Enterprise car at STR airport at 09:00. Fly STR to BCN, Vueling VY1869, 10:00-12:00. Stay at Eurostars Sitges. Culture: Sitges old town or museums.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day12-13" role="button" tabindex="0">
           <strong>12-13 July</strong>
           <span>Sitges / Barcelona beach and city days. Culture: Sitges Museums, Museu de Maricel, Fundacio Stampfli, Barcelona Grec Festival, or World Capital of Architecture events.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day14-16" role="button" tabindex="0">
           <strong>14-16 July</strong>
           <span>Hotel not booked yet. Add address and plans when decided. Culture: Grec Festival, Sala Montjuic, Bachcelona through 16 July, or Barcelona architecture events.</span>
         </div>
-        <div class="mini">
+        <div class="mini" data-detail="day17" role="button" tabindex="0">
           <strong>17 July</strong>
           <span>BCN to DUS, Vueling VY1896, 06:50-09:05. Then DUS to OSL SK817, 13:55-15:40, and OSL to TRD SK364, 19:05-20:00. Culture: no planned culture; protect the flight day.</span>
         </div>
@@ -813,6 +826,180 @@
       81: "Rain showers", 82: "Heavy showers", 95: "Thunderstorm"
     };
 
+    const routeLinks = {
+      osloHotel: "https://www.google.com/maps/dir/?api=1&origin=Oslo%20Airport%20%28OSL%29%2C%20Norway&destination=Clarion%20Hotel%20Oslo%20Airport%2C%20Hans%20Gaardervei%2015%2C%202060%20Gardermoen%2C%20Norway&travelmode=transit",
+      day8Main: "https://www.google.com/maps/dir/?api=1&origin=Dusseldorf%20Airport%20%28DUS%29%2C%20Germany&destination=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&waypoints=Cologne%20Cathedral%2C%20Cologne%2C%20Germany%7CSchloss%20Drachenburg%2C%20Koenigswinter%2C%20Germany&travelmode=driving",
+      day8Museum: "https://www.google.com/maps/dir/?api=1&origin=Dusseldorf%20Airport%20%28DUS%29%2C%20Germany&destination=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&waypoints=Cologne%20Cathedral%2C%20Cologne%2C%20Germany%7CMuseum%20Ludwig%2C%20Cologne%2C%20Germany&travelmode=driving",
+      day8Timeride: "https://www.google.com/maps/dir/?api=1&origin=Dusseldorf%20Airport%20%28DUS%29%2C%20Germany&destination=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&waypoints=Cologne%20Cathedral%2C%20Cologne%2C%20Germany%7CTimeRide%20Cologne%2C%20Alter%20Markt%2C%20Cologne%2C%20Germany&travelmode=driving",
+      day8Mainz: "https://www.google.com/maps/dir/?api=1&origin=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&destination=Mainz%20Altstadt%2C%20Mainz%2C%20Germany&travelmode=driving",
+      day9Main: "https://www.google.com/maps/dir/?api=1&origin=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Heidelberg%20Castle%2C%20Heidelberg%2C%20Germany%7CTechnik%20Museum%20Sinsheim%2C%20Sinsheim%2C%20Germany&travelmode=driving",
+      day9Culture: "https://www.google.com/maps/dir/?api=1&origin=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Heidelberg%20Castle%2C%20Heidelberg%2C%20Germany%7CKurpf%C3%A4lzisches%20Museum%2C%20Heidelberg%2C%20Germany&travelmode=driving",
+      stuttgartSchlossplatz: "https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Schlossplatz%2C%20Stuttgart%2C%20Germany&travelmode=walking",
+      tripsdrill: "https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Tripsdrill%20Theme%20Park%2C%20Cleebronn%2C%20Germany&travelmode=driving",
+      carMuseums: "https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Mercedes-Benz%20Museum%2C%20Stuttgart%2C%20Germany%7CPorsche%20Museum%2C%20Stuttgart%2C%20Germany&travelmode=driving",
+      blackForest: "https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Baden-Baden%2C%20Germany%7CMummelsee%2C%20Seebach%2C%20Germany%7CFreudenstadt%2C%20Germany&travelmode=driving",
+      stuttgartPride: "https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Weissenburgstrasse%2028A%2C%2070180%20Stuttgart%2C%20Germany&travelmode=transit",
+      strAirport: "https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Stuttgart%20Airport%20%28STR%29%2C%20Germany&travelmode=driving",
+      bcnSitges: "https://www.google.com/maps/dir/?api=1&origin=Barcelona%20Airport%20%28BCN%29%2C%20Spain&destination=Eurostars%20Sitges%2C%20Sitges%2C%20Spain&travelmode=driving",
+      sitgesOldTown: "https://www.google.com/maps/dir/?api=1&origin=Eurostars%20Sitges%2C%20Sitges%2C%20Spain&destination=Church%20of%20Sant%20Bartomeu%20and%20Santa%20Tecla%2C%20Sitges%2C%20Spain&travelmode=driving",
+      sitgesMaricel: "https://www.google.com/maps/dir/?api=1&origin=Eurostars%20Sitges%2C%20Sitges%2C%20Spain&destination=Museu%20de%20Maricel%2C%20Sitges%2C%20Spain&travelmode=driving",
+      sitgesMuseums: "https://www.google.com/maps/dir/?api=1&origin=Eurostars%20Sitges%2C%20Sitges%2C%20Spain&destination=Eurostars%20Sitges%2C%20Sitges%2C%20Spain&waypoints=Museu%20de%20Maricel%2C%20Sitges%2C%20Spain%7CFundacio%20Stampfli%2C%20Sitges%2C%20Spain&travelmode=driving",
+      grec: "https://www.google.com/maps/dir/?api=1&destination=Teatre%20Grec%2C%20Barcelona%2C%20Spain&travelmode=transit",
+      montjuic: "https://www.google.com/maps/dir/?api=1&destination=Montjuic%20Castle%2C%20Barcelona%2C%20Spain&travelmode=transit",
+      bachcelona: "https://www.google.com/maps/search/?api=1&query=Bachcelona%20Barcelona%20festival%20venue",
+      architecture: "https://www.google.com/maps/search/?api=1&query=Barcelona%202026%20World%20Capital%20of%20Architecture%20events",
+      bcnAirport: "https://www.google.com/maps/dir/?api=1&destination=Barcelona%20Airport%20%28BCN%29%2C%20Spain&travelmode=driving"
+    };
+
+    function link(label, url) {
+      return `<a class="btn" href="${url}" target="_blank" rel="noopener">${label}</a>`;
+    }
+
+    const detailWindows = {
+      day7: {
+        title: "7 July: TRD to OSL",
+        body: `
+          <h2>Plan</h2>
+          <p>SAS SK377 TRD-OSL, 20:30-21:25. Overnight at Clarion Hotel Oslo Airport.</p>
+          <h2>Booking</h2>
+          <p>SAS booking ref <strong>YWLAOR</strong>. Hotel: Clarion Hotel Oslo Airport, Hans Gaardervei 15, 2060 Gardermoen.</p>
+          <h2>Culture</h2>
+          <p>Keep this airport-light. Oslo city culture is not realistic with the late arrival.</p>
+          <div class="actions">${link("Navigate Hotel", routeLinks.osloHotel)}<a class="btn secondary" href="https://www.visitnorway.com/places-to-go/eastern-norway/oslo/whats-on" target="_blank" rel="noopener">Oslo Events</a></div>`
+      },
+      day8: {
+        title: "8 July: DUS to Nierstein",
+        body: `
+          <h2>Plan</h2>
+          <p>OSL-DUS SK816, 08:40-10:30. Pick up Enterprise SUV at DUS at 12:00. Drive DUS -> Cologne Cathedral -> Schloss Drachenburg -> Nierstein.</p>
+          <h2>Culture Options</h2>
+          <p>Use one compact Cologne culture stop if energy is good: Museum Ludwig or TimeRide Cologne. Mainz/Rheinhessen is an evening fallback from Nierstein.</p>
+          <h2>Stay</h2>
+          <p>Best Western Wein- und Parkhotel Nierstein.</p>
+          <div class="actions">${link("Main Route", routeLinks.day8Main)}${link("Via Museum Ludwig", routeLinks.day8Museum)}${link("Via TimeRide", routeLinks.day8Timeride)}${link("Nierstein to Mainz", routeLinks.day8Mainz)}</div>`
+      },
+      day9: {
+        title: "9 July: Nierstein to Stuttgart",
+        body: `
+          <h2>Plan</h2>
+          <p>Nierstein -> Heidelberg Old Town and Castle -> Technik Museum Sinsheim -> Hotel Royal Stuttgart.</p>
+          <h2>Culture Options</h2>
+          <p>Heidelberg Castle Festival / Kurpfalzisches Museum are the route culture choices. If you arrive early, Schlossplatz / jazzopen is the Stuttgart evening option.</p>
+          <h2>Stay</h2>
+          <p>Hotel Royal Stuttgart.</p>
+          <div class="actions">${link("Main Route", routeLinks.day9Main)}${link("Heidelberg Culture", routeLinks.day9Culture)}${link("Hotel to jazzopen", routeLinks.stuttgartSchlossplatz)}</div>`
+      },
+      day10: {
+        title: "10 July: Stuttgart Family Day",
+        body: `
+          <h2>Recommended</h2>
+          <p>Tripsdrill is the safest family choice for ages 10, 14, and 17.</p>
+          <h2>Alternatives</h2>
+          <p>Mercedes-Benz Museum + Porsche Museum for cars/design, or Black Forest B500 for scenery.</p>
+          <h2>Culture</h2>
+          <p>Stuttgart PRIDE Culture Weeks start today. jazzopen is also running in the city.</p>
+          <div class="actions">${link("Tripsdrill", routeLinks.tripsdrill)}${link("Car Museums", routeLinks.carMuseums)}${link("Black Forest", routeLinks.blackForest)}${link("jazzopen", routeLinks.stuttgartSchlossplatz)}${link("PRIDE", routeLinks.stuttgartPride)}</div>`
+      },
+      day11: {
+        title: "11 July: Stuttgart to Barcelona / Sitges",
+        body: `
+          <h2>Plan</h2>
+          <p>Drop Enterprise car at STR airport at 09:00. Fly STR-BCN Vueling VY1869, 10:00-12:00. Transfer to Eurostars Sitges.</p>
+          <h2>Culture</h2>
+          <p>Keep it local after arrival: Sitges old town, waterfront church viewpoint, or Museu de Maricel.</p>
+          <h2>Booking</h2>
+          <p>Vueling ref <strong>NGMUUV</strong>. Gotogate order <strong>1139-733-520</strong>.</p>
+          <div class="actions">${link("Hotel to STR", routeLinks.strAirport)}${link("BCN to Sitges", routeLinks.bcnSitges)}${link("Sitges Old Town", routeLinks.sitgesOldTown)}${link("Museu de Maricel", routeLinks.sitgesMaricel)}</div>`
+      },
+      "day12-13": {
+        title: "12-13 July: Sitges / Barcelona",
+        body: `
+          <h2>Plan</h2>
+          <p>Beach and city days from Eurostars Sitges.</p>
+          <h2>Culture Options</h2>
+          <p>Sitges Museums, Museu de Maricel, Fundacio Stampfli, Barcelona Grec Festival, and Barcelona 2026 World Capital of Architecture activities.</p>
+          <div class="actions">${link("Sitges Museums Loop", routeLinks.sitgesMuseums)}${link("Museu de Maricel", routeLinks.sitgesMaricel)}${link("Grec Festival", routeLinks.grec)}${link("Architecture 2026", routeLinks.architecture)}</div>`
+      },
+      "day14-16": {
+        title: "14-16 July: Spain Hotel Open",
+        body: `
+          <h2>Plan</h2>
+          <p>Hotel not booked yet. Add the address in Booking Notes when ready.</p>
+          <h2>Culture Options</h2>
+          <p>Grec Festival, Sala Montjuic, Bachcelona through 16 July, Barcelona museums, and architecture events.</p>
+          <div class="actions">${link("Grec Festival", routeLinks.grec)}${link("Sala Montjuic", routeLinks.montjuic)}${link("Bachcelona", routeLinks.bachcelona)}${link("Architecture 2026", routeLinks.architecture)}</div>`
+      },
+      day17: {
+        title: "17 July: BCN to DUS to TRD",
+        body: `
+          <h2>Plan</h2>
+          <p>VY1896 BCN-DUS, 06:50-09:05. Then SK817 DUS-OSL, 13:55-15:40, and SK364 OSL-TRD, 19:05-20:00.</p>
+          <h2>Booking</h2>
+          <p>Vueling ref <strong>ZHMKSV</strong>. Gotogate order <strong>1134-491-299</strong>. SAS return ref <strong>YWFM5O</strong>.</p>
+          <h2>Culture</h2>
+          <p>No planned culture. The early BCN departure and DUS layover are not comfortable for leaving the airport with a family.</p>
+          <div class="actions">${link("Navigate to BCN", routeLinks.bcnAirport)}</div>`
+      }
+    };
+
+    detailWindows["day7-flight"] = detailWindows.day7;
+    detailWindows["day7-hotel"] = detailWindows.day7;
+    detailWindows["day8-flight"] = detailWindows.day8;
+    detailWindows["day8-11-germany"] = {
+      title: "8-11 July: Germany Drive",
+      body: `${detailWindows.day8.body}<hr>${detailWindows.day9.body}<hr>${detailWindows.day10.body}<hr>${detailWindows.day11.body}`
+    };
+    detailWindows["day11-14-sitges"] = {
+      title: "11-14 July: Sitges Base",
+      body: `${detailWindows.day11.body}<hr>${detailWindows["day12-13"].body}<hr>${detailWindows["day14-16"].body}`
+    };
+    detailWindows["day14-16-spain"] = detailWindows["day14-16"];
+    detailWindows["day17-bcn-dus"] = detailWindows.day17;
+    detailWindows["day17-dus-trd"] = detailWindows.day17;
+
+    function openDetailWindow(key) {
+      const detail = detailWindows[key];
+      if (!detail) return;
+      const win = window.open("", "_blank", "width=760,height=900");
+      if (!win) {
+        alert("Popup was blocked. Allow popups for this file to open the day detail window.");
+        return;
+      }
+      win.document.write(`<!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>${detail.title}</title>
+          <style>
+            body { margin: 0; padding: 18px; color: #17212b; background: #f3f6f7; font-family: Arial, Helvetica, sans-serif; }
+            main { max-width: 760px; margin: 0 auto; padding: 16px; background: #fff; border: 1px solid #d8e0e5; border-radius: 12px; box-shadow: 0 10px 26px rgba(16, 33, 48, 0.10); }
+            h1 { margin: 0 0 12px; font-size: 24px; line-height: 1.2; }
+            h2 { margin: 16px 0 6px; font-size: 16px; }
+            p { margin: 0 0 10px; color: #65717c; font-size: 14px; line-height: 1.45; }
+            hr { margin: 18px 0; border: 0; border-top: 1px solid #d8e0e5; }
+            .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin-top: 12px; }
+            .btn { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 10px 12px; border-radius: 10px; border: 1px solid #0f4f90; color: #fff; background: #2364aa; text-align: center; text-decoration: none; font-size: 14px; font-weight: 800; line-height: 1.2; }
+            .btn.secondary { color: #17212b; background: #fff; border-color: #d8e0e5; }
+          </style>
+        </head>
+        <body><main><h1>${detail.title}</h1>${detail.body}</main></body>
+        </html>`);
+      win.document.close();
+    }
+
+    function enableDetailCards() {
+      document.querySelectorAll("[data-detail]").forEach((card) => {
+        card.addEventListener("click", () => openDetailWindow(card.dataset.detail));
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openDetailWindow(card.dataset.detail);
+          }
+        });
+      });
+    }
+
     function saveFields() {
       document.querySelectorAll("[data-save]").forEach((field) => {
         const key = "germanyTrip." + field.dataset.save;
@@ -854,6 +1041,7 @@
       grid.innerHTML = cards.join("");
     }
 
+    enableDetailCards();
     saveFields();
     loadWeather();
   </script>
