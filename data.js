@@ -582,7 +582,7 @@ const TRIP = {
     "Water, snacks, motion-sickness tablets, charging cables, and a small trash bag.",
     "Passports, driving license, car rental papers, hotel confirmations, and flight details.",
     "Light rain jackets. July can switch between warm sun and sudden showers."
-  ]
+  ],
 // ---------------------------------------------------------------------
 // CULTURE — curated cultural activities aligned with your route
 // Keep rhythm: 1 major culture stop before lunch, 1 lighter after lunch
