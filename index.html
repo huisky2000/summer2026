@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Summer Trip Companion</title>
+  
+  <!-- PWA Meta Tags for iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="EuroTrip">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f6f7;
+      --panel: #ffffff;
+      --ink: #17212b;
+      --muted: #65717c;
+      --line: #d8e0e5;
+      --red: #d9382e;
+      --green: #1f7a4d;
+      --blue: #2364aa;
+      --violet: #7452a6;
+      --amber: #a86412;
+      --shadow: 0 10px 26px rgba(16, 33, 48, 0.10);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Smooth scrolling for anchor links */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 14px 14px 10px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .sub {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    nav a {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    section {
+      margin: 0 0 14px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      /* Offset for the sticky header when clicking nav links */
+      scroll-margin-top: 140px; 
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    h3 {
+      margin: 12px 0 8px;
+      font-size: 15px;
+    }
+
+    p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .mini {
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fbfcfd;
+    }
+
+    .mini strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .mini span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .day { border-left: 6px solid var(--blue); }
+    .day.day1 { border-left-color: var(--red); }
+    .day.day2 { border-left-color: var(--green); }
+    .day.day3 { border-left-color: var(--blue); }
+    .day.airport { border-left-color: #222; }
+
+    .route {
+      display: grid;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .stop {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 8px;
+      align-items: start;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: #eef3f6;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid var(--line);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #0f4f90;
+      color: #fff;
+      background: #2364aa;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .btn.secondary {
+      color: var(--ink);
+      background: #fff;
+      border-color: var(--line);
+    }
+
+    .btn.green {
+      border-color: #17613d;
+      background: var(--green);
+    }
+
+    .btn.violet {
+      border-color: #5a3d85;
+      background: var(--violet);
+    }
+
+    textarea, input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 86px;
+      resize: vertical;
+    }
+
+    .weather-card {
+      min-height: 128px;
+    }
+
+    .weather-main {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .temp {
+      font-size: 32px;
+      font-weight: 800;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      margin: 3px 4px 3px 0;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #eef3f6;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .warning {
+      padding: 10px;
+      border: 1px solid #efc36d;
+      border-radius: 10px;
+      color: #51360b;
+      background: #fff7e6;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .ref {
+      color: var(--ink);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 800;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .footer-space {
+      height: 24px;
+    }
+
+    @media (max-width: 520px) {
+      main { padding: 10px; }
+      section { padding: 12px; border-radius: 10px; }
+      .actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Summer Trip Companion</h1>
+    <p class="sub">7-17 July 2026 | Norway, Germany, Spain | 2 adults, 3 kids</p>
+    <nav aria-label="App sections">
+      <a href="#today">Today</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#routes">Routes</a>
+      <a href="#bookings">Bookings</a>
+      <a href="#apps">Apps</a>
+      <a href="#weather">Weather</a>
+      <a href="#tips">Tips</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="today">
+      <h2>Trip Dashboard</h2>
+      <div class="grid">
+        <div class="mini">
+          <strong>7 July: TRD to OSL</strong>
+          <span>SAS SK377, 20:30-21:25. Booking ref <span class="ref">YWLAOR</span>.</span>
+        </div>
+        <div class="mini">
+          <strong>7 July: Oslo Airport Hotel</strong>
+          <span>Clarion Hotel Oslo Airport, Hans Gaardervei 15, 2060 Gardermoen.</span>
+        </div>
+        <div class="mini">
+          <strong>8 July: OSL to DUS</strong>
+          <span>SAS SK816, 08:40-10:30. Booking ref <span class="ref">YWLAOR</span>.</span>
+        </div>
+        <div class="mini">
+          <strong>8-11 July: Germany Drive</strong>
+          <span>DUS pickup, Nierstein, Stuttgart, STR drop-off, then BCN.</span>
+        </div>
+        <div class="mini">
+          <strong>11-14 July: Sitges</strong>
+          <span>Eurostars Sitges, booked via Hotels.com.</span>
+        </div>
+        <div class="mini">
+          <strong>14-17 July: Spain Hotel</strong>
+          <span>Not booked yet. Add details in Booking Notes when ready.</span>
+        </div>
+        <div class="mini">
+          <strong>17 July: BCN to DUS</strong>
+          <span>Vueling VY1896, 06:50-09:05. Airline ref <span class="ref">ZHMKSV</span>.</span>
+        </div>
+        <div class="mini">
+          <strong>17 July: DUS to TRD</strong>
+          <span>SAS SK817 DUS-OSL 13:55-15:40, SK364 OSL-TRD 19:05-20:00. Ref <span class="ref">YWFM5O</span>.</span>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Clarion%20Hotel%20Oslo%20Airport%2C%20Hans%20Gaardervei%2015%2C%202060%20Gardermoen%2C%20Norway">Oslo Airport Hotel</a>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany">Nierstein Hotel</a>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Royal%2C%20Stuttgart%2C%20Germany">Stuttgart Hotel</a>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Eurostars%20Sitges%2C%20Sitges%2C%20Spain">Eurostars Sitges</a>
+        <a class="btn secondary" href="#bookings">Booking Notes</a>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <h2>Full Trip Timeline</h2>
+      <div class="grid">
+        <div class="mini">
+          <strong>7 July</strong>
+          <span>TRD to OSL, SAS SK377, 20:30-21:25. Overnight at Clarion Hotel Oslo Airport.</span>
+        </div>
+        <div class="mini">
+          <strong>8 July</strong>
+          <span>OSL to DUS, SAS SK816, 08:40-10:30. Pick up Enterprise Standard SUV at DUS airport at 12:00. Drive to Nierstein.</span>
+        </div>
+        <div class="mini">
+          <strong>9 July</strong>
+          <span>Nierstein to Stuttgart via Heidelberg and Technik Museum Sinsheim. Stay at Hotel Royal.</span>
+        </div>
+        <div class="mini">
+          <strong>10 July</strong>
+          <span>Recommended family day: Tripsdrill. Alternatives: Mercedes/Porsche museums or Black Forest B500.</span>
+        </div>
+        <div class="mini">
+          <strong>11 July</strong>
+          <span>Drop Enterprise car at STR airport at 09:00. Fly STR to BCN, Vueling VY1869, 10:00-12:00. Stay at Eurostars Sitges.</span>
+        </div>
+        <div class="mini">
+          <strong>12-13 July</strong>
+          <span>Sitges / Barcelona beach and city days. Use hotel as base.</span>
+        </div>
+        <div class="mini">
+          <strong>14-16 July</strong>
+          <span>Hotel not booked yet. Add address and plans when decided.</span>
+        </div>
+        <div class="mini">
+          <strong>17 July</strong>
+          <span>BCN to DUS, Vueling VY1896, 06:50-09:05. Then DUS to OSL SK817, 13:55-15:40, and OSL to TRD SK364, 19:05-20:00.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="routes">
+      <h2>One-Tap Google Maps Routes</h2>
+      <p>Tap a route to open Google Maps with the stops loaded. Then use live traffic and navigation inside Google Maps.</p>
+
+      <article class="mini day airport">
+        <h3>7 July: Oslo Airport Overnight</h3>
+        <div class="actions">
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Oslo%20Airport%20%28OSL%29%2C%20Norway&destination=Clarion%20Hotel%20Oslo%20Airport%2C%20Hans%20Gaardervei%2015%2C%202060%20Gardermoen%2C%20Norway&travelmode=transit">OSL to Hotel</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Clarion%20Hotel%20Oslo%20Airport%2C%20Hans%20Gaardervei%2015%2C%202060%20Gardermoen%2C%20Norway">Open Hotel</a>
+        </div>
+      </article>
+
+      <article class="mini day day1">
+        <h3>8 July: DUS to Nierstein</h3>
+        <div class="route">
+          <div class="stop"><span class="dot">1</span><span>Dusseldorf Airport (DUS)</span></div>
+          <div class="stop"><span class="dot">2</span><span>Cologne Cathedral</span></div>
+          <div class="stop"><span class="dot">3</span><span>Schloss Drachenburg</span></div>
+          <div class="stop"><span class="dot">4</span><span>Best Western Wein- und Parkhotel Nierstein</span></div>
+        </div>
+        <div class="actions">
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Dusseldorf%20Airport%20%28DUS%29%2C%20Germany&destination=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&waypoints=Cologne%20Cathedral%2C%20Cologne%2C%20Germany%7CSchloss%20Drachenburg%2C%20Koenigswinter%2C%20Germany&travelmode=driving">Navigate Day 1</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Cologne%20Cathedral%2C%20Cologne%2C%20Germany">Cologne</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Schloss%20Drachenburg%2C%20Koenigswinter%2C%20Germany">Drachenburg</a>
+        </div>
+      </article>
+
+      <article class="mini day day2">
+        <h3>9 July: Nierstein to Stuttgart</h3>
+        <div class="route">
+          <div class="stop"><span class="dot">1</span><span>Best Western Wein- und Parkhotel Nierstein</span></div>
+          <div class="stop"><span class="dot">2</span><span>Heidelberg Castle and Old Town</span></div>
+          <div class="stop"><span class="dot">3</span><span>Technik Museum Sinsheim</span></div>
+          <div class="stop"><span class="dot">4</span><span>Hotel Royal Stuttgart</span></div>
+        </div>
+        <div class="actions">
+          <a class="btn green" href="https://www.google.com/maps/dir/?api=1&origin=Best%20Western%20Wein-%20und%20Parkhotel%20Nierstein%2C%20Nierstein%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Heidelberg%20Castle%2C%20Heidelberg%2C%20Germany%7CTechnik%20Museum%20Sinsheim%2C%20Sinsheim%2C%20Germany&travelmode=driving">Navigate Day 2</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Heidelberg%20Castle%2C%20Heidelberg%2C%20Germany">Heidelberg</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Technik%20Museum%20Sinsheim%2C%20Sinsheim%2C%20Germany">Sinsheim</a>
+        </div>
+      </article>
+
+      <article class="mini day day3">
+        <h3>10 July: Recommended Family Day</h3>
+        <p>Tripsdrill is the strongest family choice for ages 10, 14, and 17.</p>
+        <div class="actions">
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Tripsdrill%20Theme%20Park%2C%20Cleebronn%2C%20Germany&travelmode=driving">Navigate Tripsdrill</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Tripsdrill%20Theme%20Park%2C%20Cleebronn%2C%20Germany">Open Tripsdrill</a>
+        </div>
+      </article>
+
+      <article class="mini day">
+        <h3>10 July Alternatives</h3>
+        <div class="actions">
+          <a class="btn violet" href="https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Mercedes-Benz%20Museum%2C%20Stuttgart%2C%20Germany%7CPorsche%20Museum%2C%20Stuttgart%2C%20Germany&travelmode=driving">Car Museums</a>
+          <a class="btn violet" href="https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&waypoints=Baden-Baden%2C%20Germany%7CMummelsee%2C%20Seebach%2C%20Germany%7CFreudenstadt%2C%20Germany&travelmode=driving">Black Forest B500</a>
+        </div>
+      </article>
+
+      <article class="mini day airport">
+        <h3>11 July: Stuttgart Airport</h3>
+        <div class="actions">
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=Hotel%20Royal%2C%20Stuttgart%2C%20Germany&destination=Stuttgart%20Airport%20%28STR%29%2C%20Germany&travelmode=driving">Navigate to STR</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Stuttgart%20Airport%20%28STR%29%2C%20Germany">Airport Info</a>
+        </div>
+      </article>
+
+      <article class="mini day">
+        <h3>11 July: BCN to Eurostars Sitges</h3>
+        <div class="actions">
+          <a class="btn green" href="https://www.google.com/maps/dir/?api=1&origin=Barcelona%20Airport%20%28BCN%29%2C%20Spain&destination=Eurostars%20Sitges%2C%20Sitges%2C%20Spain&travelmode=driving">BCN to Sitges</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Eurostars%20Sitges%2C%20Sitges%2C%20Spain">Open Eurostars</a>
+        </div>
+      </article>
+
+      <article class="mini day airport">
+        <h3>17 July: Return Airports</h3>
+        <div class="actions">
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=Barcelona%20Airport%20%28BCN%29%2C%20Spain&travelmode=driving">Navigate to BCN</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Dusseldorf%20Airport%20%28DUS%29%2C%20Germany">DUS Airport</a>
+          <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Oslo%20Airport%20%28OSL%29%2C%20Norway">OSL Airport</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="traffic">
+      <h2>Traffic Shortcuts</h2>
+      <p>Traffic is best handled directly by Google Maps. These buttons open the map around the relevant area.</p>
+      <div class="actions">
+        <a class="btn secondary" href="https://www.google.com/maps/@?api=1&map_action=map&center=50.9413%2C6.9583&zoom=11&basemap=roadmap">Cologne Traffic</a>
+        <a class="btn secondary" href="https://www.google.com/maps/@?api=1&map_action=map&center=49.4106%2C8.7158&zoom=11&basemap=roadmap">Heidelberg Traffic</a>
+        <a class="btn secondary" href="https://www.google.com/maps/@?api=1&map_action=map&center=48.7744%2C9.1726&zoom=11&basemap=roadmap">Stuttgart Traffic</a>
+      </div>
+    </section>
+
+    <section id="bookings">
+      <h2>Booking Information</h2>
+      <p>Key references are shown here. The editable notes stay saved on this phone/browser.</p>
+      <div class="grid">
+        <div class="mini">
+          <strong>SAS Outbound</strong>
+          <span>Booking ref <span class="ref">YWLAOR</span><br>SK377 TRD-OSL, 7 July 20:30-21:25<br>SK816 OSL-DUS, 8 July 08:40-10:30</span>
+        </div>
+        <div class="mini">
+          <strong>Car Rental</strong>
+          <span>Booking.com ref <span class="ref">786926825</span><br>Enterprise, Standard SUV<br>Pick up: 8 July 12:00, DUS airport terminal<br>Drop off: 11 July 09:00, STR airport terminal</span>
+        </div>
+        <div class="mini">
+          <strong>Vueling / Gotogate to BCN</strong>
+          <span>Gotogate order <span class="ref">1139-733-520</span><br>Vueling ref <span class="ref">NGMUUV</span><br>VY1869 STR-BCN, 11 July 10:00-12:00</span>
+        </div>
+        <div class="mini">
+          <strong>Vueling / Gotogate to DUS</strong>
+          <span>Gotogate order <span class="ref">1134-491-299</span><br>Vueling ref <span class="ref">ZHMKSV</span><br>VY1896 BCN-DUS, 17 July 06:50-09:05</span>
+        </div>
+        <div class="mini">
+          <strong>SAS Return</strong>
+          <span>Booking ref <span class="ref">YWFM5O</span><br>SK817 DUS-OSL, 17 July 13:55-15:40<br>SK364 OSL-TRD, 17 July 19:05-20:00</span>
+        </div>
+        <div class="mini">
+          <strong>Hotels</strong>
+          <span>7 July: Clarion Hotel Oslo Airport<br>8 July: Best Western Wein- und Parkhotel Nierstein<br>9-11 July: Hotel Royal Stuttgart<br>11-14 July: Eurostars Sitges<br>14-17 July: not booked yet</span>
+        </div>
+      </div>
+      <h3>Editable Notes</h3>
+      <div class="grid">
+        <label class="mini">
+          <strong>Car Rental Notes</strong>
+          <textarea data-save="carRental" placeholder="Desk location, fuel policy, parking, damage photos"></textarea>
+        </label>
+        <label class="mini">
+          <strong>Hotel Notes</strong>
+          <textarea data-save="hotelNotes" placeholder="Hotel confirmation numbers, parking, check-in times"></textarea>
+        </label>
+        <label class="mini">
+          <strong>14-17 July Hotel</strong>
+          <textarea data-save="hotelSpainOpen" placeholder="Add hotel name, address, confirmation number when booked"></textarea>
+        </label>
+        <label class="mini">
+          <strong>Flight Notes</strong>
+          <textarea data-save="flights" placeholder="Seats, baggage, check-in notes, passport reminders"></textarea>
+        </label>
+      </div>
+    </section>
+
+    <section id="apps">
+      <h2>Booking And Airline Apps</h2>
+      <p>These links open the official manage-booking pages. On many phones they may hand off to the installed app.</p>
+      <div class="grid">
+        <div class="mini">
+          <strong>SAS</strong>
+          <span>Refs: <span class="ref">YWLAOR</span>, <span class="ref">YWFM5O</span></span>
+          <div class="actions">
+            <a class="btn" href="https://www.flysas.com/en/managemybooking">SAS Manage Booking</a>
+            <a class="btn secondary" href="https://www.flysas.com/us-en/checkin">SAS Check-in</a>
+          </div>
+        </div>
+        <div class="mini">
+          <strong>Booking.com Car Rental</strong>
+          <span>Booking reference <span class="ref">786926825</span></span>
+          <div class="actions">
+            <a class="btn" href="https://cars.booking.com/Manage">Manage Car Rental</a>
+          </div>
+        </div>
+        <div class="mini">
+          <strong>Hotels.com</strong>
+          <span>Used for Nierstein, Stuttgart, and Sitges hotels.</span>
+          <div class="actions">
+            <a class="btn" href="https://www.hotels.com/trips">Hotels.com Trips</a>
+            <a class="btn secondary" href="https://www.hotels.com/trips/booking-search?view=SEARCH_BY_ITINERARY_NUMBER_AND_EMAIL">Find Booking</a>
+          </div>
+        </div>
+        <div class="mini">
+          <strong>Gotogate</strong>
+          <span>Orders: <span class="ref">1139-733-520</span>, <span class="ref">1134-491-299</span></span>
+          <div class="actions">
+            <a class="btn" href="https://us.gotogate.com/rf/postbooking-login">Gotogate My Bookings</a>
+          </div>
+        </div>
+        <div class="mini">
+          <strong>Vueling</strong>
+          <span>Refs: <span class="ref">NGMUUV</span>, <span class="ref">ZHMKSV</span></span>
+          <div class="actions">
+            <a class="btn" href="https://m.vueling.com/MyBookings">Vueling My Trips</a>
+            <a class="btn secondary" href="https://www.vueling.com/en">Vueling Home</a>
+          </div>
+        </div>
+      </div>
+      <div class="warning">App deep links are not standardized across Hotels.com, Gotogate, SAS, Booking.com, and Vueling. These official web links are the most reliable way to open the booking on any phone.</div>
+    </section>
+
+    <section id="weather">
+      <h2>Weather</h2>
+      <p>Live weather uses Open-Meteo. Forecasts become most useful close to the travel dates.</p>
+      <div class="grid" id="weatherGrid">
+        <div class="mini weather-card">Loading weather...</div>
+      </div>
+    </section>
+
+    <section id="tips">
+      <h2>Useful Tips</h2>
+      <div class="grid">
+        <div class="mini">
+          <strong>Arrival Day</strong>
+          <span>Keep 8 July flexible. Luggage, car rental, food, and tired kids can easily use more time than expected.</span>
+        </div>
+        <div class="mini">
+          <strong>Parking</strong>
+          <span>Check hotel parking before arrival. In old towns, use central parking garages and walk.</span>
+        </div>
+        <div class="mini">
+          <strong>Family Rhythm</strong>
+          <span>Use one major stop before lunch and one after lunch. Avoid too many short village stops.</span>
+        </div>
+        <div class="mini">
+          <strong>Offline Backup</strong>
+          <span>Download offline Google Maps areas for Cologne, Rhine/Main, Heidelberg, Stuttgart, and Black Forest.</span>
+        </div>
+      </div>
+      <h3>Good To Have In The Car</h3>
+      <ul>
+        <li>Water, snacks, motion-sickness tablets, charging cables, and a small trash bag.</li>
+        <li>Passports, driving license, car rental papers, hotel confirmations, and flight details.</li>
+        <li>Light rain jackets. July can switch between warm sun and sudden showers.</li>
+      </ul>
+      <h3>Emergency</h3>
+      <span class="pill">112 emergency</span>
+      <span class="pill">110 police</span>
+      <span class="pill">Save hotel addresses offline</span>
+    </section>
+
+    <div class="footer-space"></div>
+  </main>
+
+  <script>
+    const weatherLocations = [
+      { name: "Oslo Airport", lat: 60.1939, lon: 11.1004 },
+      { name: "Nierstein", lat: 49.8706, lon: 8.3366 },
+      { name: "Heidelberg", lat: 49.4106, lon: 8.7158 },
+      { name: "Stuttgart", lat: 48.7744, lon: 9.1726 },
+      { name: "Sitges", lat: 41.2372, lon: 1.8059 },
+      { name: "Barcelona", lat: 41.2974, lon: 2.0833 }
+    ];
+
+    const weatherCodes = {
+      0: "Clear", 1: "Mostly clear", 2: "Partly cloudy", 3: "Cloudy",
+      45: "Fog", 48: "Fog", 51: "Light drizzle", 53: "Drizzle", 55: "Heavy drizzle",
+      61: "Light rain", 63: "Rain", 65: "Heavy rain", 71: "Snow", 80: "Rain showers",
+      81: "Rain showers", 82: "Heavy showers", 95: "Thunderstorm"
+    };
+
+    function saveFields() {
+      document.querySelectorAll("[data-save]").forEach((field) => {
+        const key = "germanyTrip." + field.dataset.save;
+        field.value = localStorage.getItem(key) || "";
+        field.addEventListener("input", () => localStorage.setItem(key, field.value));
+      });
+    }
+
+    async function loadWeather() {
+      const grid = document.getElementById("weatherGrid");
+      const cards = await Promise.all(weatherLocations.map(async (loc) => {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`;
+        try {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error("Weather unavailable");
+          const data = await res.json();
+          const current = data.current;
+          const daily = data.daily;
+          const text = weatherCodes[current.weather_code] || "Weather";
+          return `
+            <div class="mini weather-card">
+              <strong>${loc.name}</strong>
+              <div class="weather-main">
+                <span class="temp">${Math.round(current.temperature_2m)}°C</span>
+                <span>${text}</span>
+              </div>
+              <span class="pill">Wind ${Math.round(current.wind_speed_10m)} km/h</span>
+              <span class="pill">Rain ${current.precipitation} mm</span>
+              <span class="pill">Today ${Math.round(daily.temperature_2m_min[0])}-${Math.round(daily.temperature_2m_max[0])}°C</span>
+            </div>`;
+        } catch (err) {
+          return `
+            <div class="mini weather-card">
+              <strong>${loc.name}</strong>
+              <span>Weather could not load. Open when online or check your weather app.</span>
+            </div>`;
+        }
+      }));
+      grid.innerHTML = cards.join("");
+    }
+
+    saveFields();
+    loadWeather();
+
+    // Register the Service Worker for Offline Mode
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('Service Worker registered!', reg))
+          .catch(err => console.error('Service Worker registration failed: ', err));
+      });
+    }
+  </script>
+</body>
+</html>
