@@ -990,21 +990,44 @@
         <body>
           <main>
             <nav aria-label="Detail navigation">
-              <a class="btn secondary top-link" href="${location.href.split("#")[0]}">Back to Trip App</a>
-              <a class="btn secondary top-link" href="${location.href.split("#")[0]}#today">Dashboard</a>
-              <a class="btn secondary top-link" href="${location.href.split("#")[0]}#routes">Routes</a>
-              <a class="btn secondary top-link" href="${location.href.split("#")[0]}#culture">Culture</a>
+              <button class="btn secondary top-link" type="button" onclick="goMain('')">Back to Trip App</button>
+              <button class="btn secondary top-link" type="button" onclick="goMain('today')">Dashboard</button>
+              <button class="btn secondary top-link" type="button" onclick="goMain('routes')">Routes</button>
+              <button class="btn secondary top-link" type="button" onclick="goMain('culture')">Culture</button>
               <button class="btn secondary top-link" type="button" onclick="window.close()">Close Window</button>
             </nav>
             <h1>${detail.title}</h1>
             ${detail.body}
             <footer>
               <div class="actions">
-                <a class="btn secondary" href="${location.href.split("#")[0]}">Back to Trip App</a>
+                <button class="btn secondary" type="button" onclick="goMain('')">Back to Trip App</button>
                 <button class="btn secondary" type="button" onclick="window.close()">Close Window</button>
               </div>
             </footer>
           </main>
+          <script>
+            const mainUrl = ${JSON.stringify(location.href.split("#")[0])};
+            function goMain(sectionId) {
+              if (window.opener && !window.opener.closed) {
+                window.opener.focus();
+                if (sectionId) {
+                  const target = window.opener.document.getElementById(sectionId);
+                  if (target) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    window.opener.history.replaceState(null, "", "#" + sectionId);
+                    window.close();
+                    return;
+                  }
+                } else {
+                  window.opener.scrollTo({ top: 0, behavior: "smooth" });
+                  window.opener.history.replaceState(null, "", mainUrl);
+                  window.close();
+                  return;
+                }
+              }
+              window.location.href = sectionId ? mainUrl + "#" + sectionId : mainUrl;
+            }
+          <\/script>
         </body>
         </html>`);
       win.document.close();
