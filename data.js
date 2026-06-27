@@ -583,4 +583,134 @@ const TRIP = {
     "Passports, driving license, car rental papers, hotel confirmations, and flight details.",
     "Light rain jackets. July can switch between warm sun and sudden showers."
   ]
+// ---------------------------------------------------------------------
+// CULTURE — curated cultural activities aligned with your route
+// Keep rhythm: 1 major culture stop before lunch, 1 lighter after lunch
+// ---------------------------------------------------------------------
+culture: [
+
+  // -------------------------
+  // 8 July – Cologne / Rhine
+  // -------------------------
+  {
+    date: "8 July",
+    location: "Cologne",
+    items: [
+      {
+        title: "Cologne Cathedral + Old Town Walk",
+        note: "Iconic Gothic cathedral and riverside old town. Combine with short walking route along the Rhine bridges for views and street life."
+      },
+      {
+        title: "Rhine Promenade Street Life",
+        note: "Walk or sit along the river. Street performers and relaxed local atmosphere in summer evenings."
+      },
+      {
+        title: "Evening Fireworks / River Events (if dates align)",
+        note: "Cologne hosts summer river events and fireworks (e.g. Rhine celebrations), creating a strong local festival atmosphere. [1](https://germanytravel.blog/cities/cologne/best-time-to-visit/festivals-and-holidays/)"
+      }
+    ]
+  },
+
+  // -------------------------
+  // 9 July – Heidelberg
+  // -------------------------
+  {
+    date: "9 July",
+    location: "Heidelberg",
+    items: [
+      {
+        title: "Heidelberg Castle + Old Town Culture Walk",
+        note: "Historic castle with panoramic views. Old town streets, cafes, and local shops make a classic cultural stop."
+      },
+      {
+        title: "Philosopher’s Walk + River View",
+        note: "Scenic walking path giving iconic views of the city – good quiet cultural break for kids."
+      },
+      {
+        title: "Castle Illumination (if scheduled)",
+        note: "Traditional summer event where the castle is lit with fireworks and lights, a historic cultural spectacle dating back centuries. [2](https://triplou.com/blog/germany-in-july/)"
+      }
+    ]
+  },
+
+  // -------------------------
+  // 10 July – Stuttgart / Black Forest
+  // -------------------------
+  {
+    date: "10 July",
+    location: "Stuttgart / Black Forest",
+    items: [
+      {
+        title: "Mercedes-Benz or Porsche Museum",
+        note: "Strong engineering + culture experience. Good balance for teenagers and fits your engineering profile."
+      },
+      {
+        title: "Black Forest Cultural Landscape Drive (B500)",
+        note: "Traditional villages, local crafts, and regional food culture. Combine scenery with culture."
+      },
+      {
+        title: "Local Summer Concerts / Open-air Events",
+        note: "Black Forest region hosts open-air concerts and community events in July (check locally near Baden-Baden or Freudenstadt). [3](https://www.blackforest-highlights.com/experience/events)"
+      }
+    ]
+  },
+
+  // -------------------------
+  // 11–13 July – Barcelona / Sitges
+  // -------------------------
+  {
+    date: "11–13 July",
+    location: "Barcelona / Sitges",
+    items: [
+      {
+        title: "Gaudí Architecture Route (Sagrada Familia + Park Güell)",
+        note: "Top cultural highlight. Book tickets in advance due to high demand in July. [4](https://barcelonahacks.com/barcelona-in-july/)"
+      },
+      {
+        title: "Gothic Quarter + Street Culture",
+        note: "Walk through historic streets, small squares, and street markets for authentic local atmosphere."
+      },
+      {
+        title: "Beach + Evening Promenade Culture",
+        note: "Barcelona in July blends beach life with city culture, especially in the evenings with music and street activities. [4](https://barcelonahacks.com/barcelona-in-july/)"
+      },
+      {
+        title: "Optional: Flamenco Show",
+        note: "Classic Spanish cultural experience combining music, dance, and storytelling."
+      }
+    ]
+  },
+
+  // -------------------------
+  // 14–16 July – Spain flexible days
+  // -------------------------
+  {
+    date: "14–16 July",
+    location: "Spain (flexible)",
+    items: [
+      {
+        title: "San Fermín Festival (Pamplona, if reachable)",
+        note: "Major traditional Spanish festival (6–14 July) with parades and cultural events beyond the bull run. [5](https://www.el-born.com/calendar-2026-july)"
+      },
+      {
+        title: "Barcelona / Madrid Exhibitions",
+        note: "Large-scale exhibitions (art, history, immersive experiences) run across July in major cities. [6](https://www.esmadrid.com/en/events-calendar)"
+      },
+      {
+        title: "Local Food & Market Experience",
+        note: "Markets like La Boqueria offer strong cultural immersion through food and daily life."
+      }
+    ]
+  }
+],
+
+// ---------------------------------------------------------------------
+// OPTIONAL: QUICK DAY-PLANNING RULE FOR CULTURE
+// ---------------------------------------------------------------------
+cultureTips: [
+  "Prioritise 1 major cultural highlight per day (cathedral, museum, castle).",
+  "Add 1 relaxed local experience (walk, market, or river/beach time).",
+  "Use evenings for festivals, concerts, or open-air events when available.",
+  "In July, always assume crowd → go early morning or late evening."
+]
 };
